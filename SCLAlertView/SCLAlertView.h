@@ -21,7 +21,7 @@ typedef void (^SCLDismissAnimationCompletionBlock)(void);
 typedef void (^SCLShowAnimationCompletionBlock)(void);
 typedef void (^SCLForceHideBlock)(void);
 
-@interface SCLAlertView : UIViewController 
+@interface SCLAlertView : UIViewController
 
 /** Alert Styles
  *
@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, SCLAlertViewBackground)
  * (Default: NO)
  */
 @property BOOL useLargerIcon;
-    
+
 /** Title Label
  *
  * The text displayed as title.
@@ -229,6 +229,8 @@ typedef NS_ENUM(NSInteger, SCLAlertViewBackground)
  * Horizontal aligment instead of vertically if YES
  */
 @property (nonatomic) BOOL horizontalButtons;
+
+@property (nonatomic, copy) void (^cancelButtonActionBlock)();
 
 /** Initialize SCLAlertView using a new window.
  *

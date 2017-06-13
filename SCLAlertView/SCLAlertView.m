@@ -242,7 +242,7 @@ SCLTimerDisplay *buttonTimer;
     _contentView.layer.cornerRadius = 5.0f;
     _contentView.layer.masksToBounds = YES;
     _contentView.layer.borderWidth = 0.5f;
-    [_contentView addSubview:_viewText];    
+    [_contentView addSubview:_viewText];
     [_contentView addSubview:_labelTitle];
     
     // Colors
@@ -350,7 +350,7 @@ SCLTimerDisplay *buttonTimer;
     if (!_labelTitle && !_viewText) {
         y = 0.0f;
     }
-
+    
     y += _subTitleHeight + 14.0f;
     for (SCLTextView *textField in _inputs)
     {
@@ -711,7 +711,7 @@ SCLTimerDisplay *buttonTimer;
         btn.completeButtonFormatBlock = _completeButtonFormatBlock;
     }
     
-    [btn addTarget:self action:@selector(hideView) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     return btn;
 }
@@ -1277,6 +1277,13 @@ SCLTimerDisplay *buttonTimer;
 
 #pragma mark - Hide Alert
 
+- (void)cancelButtonPressed {
+    if (self.cancelButtonActionBlock) {
+        self.cancelButtonActionBlock();
+    }
+    [self hideView];
+}
+
 - (void)hideView
 {
     switch (_hideAnimationType)
@@ -1308,7 +1315,7 @@ SCLTimerDisplay *buttonTimer;
         case SCLAlertViewHideAnimationSlideOutFromCenter:
             [self slideOutFromCenter];
             break;
-        
+            
         case SCLAlertViewHideAnimationSimplyDisappear:
             [self simplyDisappear];
             break;
@@ -1661,7 +1668,7 @@ SCLTimerDisplay *buttonTimer;
 {
     self.backgroundView.alpha = 0.0f;
     self.view.alpha = 0.0f;
-
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.backgroundView.alpha = _backgroundOpacity;
         self.view.alpha = 1.0f;
@@ -2197,7 +2204,7 @@ SCLTimerDisplay *buttonTimer;
                 button = [weakSelf.alertView addButton:builder.parameterTitle actionBlock:builder.parameterActionBlock];
             }
             builder.button = button;
-            return weakSelf; 
+            return weakSelf;
         };
     }
     return _addButtonWithBuilder;
